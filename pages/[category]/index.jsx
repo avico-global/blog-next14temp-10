@@ -1,136 +1,337 @@
 import { useRouter } from "next/router";
-import React from "react";
-import Container from "../components/common/Container";
+import React, { useEffect } from "react";
 import Link from "next/link";
-import image1 from "../../public/hero.png";
-import image2 from "../../public/hero2.webp";
-import image3 from "../../public/post3.webp";
-import Navbar from "../components/common/Navbar";
-import Header from "../components/common/Header";
-import Posts from "../components/categories/Posts";
-import RightBar from "../components/categories/RightBar";
-import Footer from "../components/common/Footer";
-import { ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
+import dayjs from "dayjs";
+import JsonLd from "@/json/JsonLd";
 
+import Navbar from "@/components/common/Navbar";
+import Header from "@/components/common/Header";
+import RightBar from "@/components/categories/RightBar";
+import Footer from "@/components/common/Footer";
+import {
+  callBackendApi,
+  getDomain,
+  getImagePath,
+  sanitizeUrl,
+} from "@/lib/myFun";
+import { cn } from "@/lib/utils";
+import Head from "next/head";
+import GoogleTagManager from "@/lib/GoogleTagManager";
 
-export default function Category() {
+export default function Category({
+  banner,
+  logo,
+  blog_list,
+  imagePath,
+  meta,
+  domain,
+  categories,
+  about_me,
+  favicon,
+  layout,
+  copyright,
+}) {
   const router = useRouter();
   const { category } = router.query;
 
-  const data = [
-    { category: "Inspirations" },
-    { category: "Personal" },
-    { category: "Travel" },
-  ];
-  const Latestpostsdata = [
-    {
-      title: "Post 1",
-      content: "This is the first post.",
-      date: "MAY 2024",
-      views: 100,
-      image: image1,
-      link: "/",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-    },
-  ];
+  const filteredBlogList = blog_list.filter((item) => {
+    return sanitizeUrl(item.article_category) === sanitizeUrl(category);
+  });
 
-  const postsdata = [
-    {
-      title: "Post 1",
-      content: "This is the first post.",
-      date: "MAY 2024",
-      views: 100,
-      image: image1,
-      link: "/",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-    },
-    {
-      title: "Post 2",
+  useEffect(() => {
+    const currentPath = router.asPath;
 
+    if (category && (category.includes("%20") || category.includes(" "))) {
+      const newCategory = category.replace(/%20/g, "-").replace(/ /g, "-");
+      router.replace(`/${newCategory}`);
+    }
 
-      content: "This is the second post.",
-      date: "JUNE 2024",
-      views: 200,
-      image: image2,
-      link: "/",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-    },
+    if (currentPath.includes("contact-us")) {
+      router.replace("/contact");
+    }
+    if (currentPath.includes("about-us")) {
+      router.replace("/about");
+    }
+  }, [category, router]);
 
+  const page = layout?.find((page) => page.page === "category");
 
-    {
-      title: "Post 3",
-      content: "This is the third post.",
-      date: "JULY 2024",
-      views: 300,
-      image: image3,
-      link: "/",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-
-
-    },
-  ];
-  const latestrightbar = [
-    {
-      image: image1,
-      title: "Post 1",
-      date: "MAY 2024",
-    },
-    {
-      image: image1,
-      title: "Post 1",
-      date: "MAY 2024",
-    },
-    {
-      image: image1,
-      title: "Post 1",
-      date: "MAY 2024",
-    },
-
-  ];
-
- 
   return (
     <>
-      <Navbar />
-      <Header />
-      {/* links */}
-      <Container className="mt-10 flex gap-1 items-center md:w-[1000px] py-4 md:py-0 px-5">
-        <Link href="/">Home</Link>
-        <ChevronRight size={20} />
-        <Link href={`/${category}`}>{category}</Link>
-      </Container>
-      <Container className="px-16">
-        <div className="flex flex-col  items-center justify-center py-8 lg:py-16">
+      <Head>
+        <meta charSet="UTF-8" />
+        <title>{meta?.title}</title>
+        <meta name="description" content={meta?.description} />
+        <link rel="author" href={`https://www.${domain}`} />
+        <link rel="publisher" href={`https://www.${domain}`} />
+        <link rel="canonical" href={`https://www.${domain}`} />
+        <meta name="theme-color" content="#008DE5" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <GoogleTagManager />
+        <meta
+          name="google-site-verification"
+          content="zbriSQArMtpCR3s5simGqO5aZTDqEZZi9qwinSrsRPk"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href={`${process.env.NEXT_PUBLIC_SITE_MANAGER}/images/${imagePath}/${favicon}`}
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href={`${process.env.NEXT_PUBLIC_SITE_MANAGER}/images/${imagePath}/${favicon}`}
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href={`${process.env.NEXT_PUBLIC_SITE_MANAGER}/images/${imagePath}/${favicon}`}
+        />
+      </Head>
 
+      <Navbar
+        logo={logo}
+        imagePath={imagePath}
+        blog_list={blog_list}
+        categories={categories}
+      />
+      <div className=" md:mt-0">
+        <Header
+          logo={logo}
+          categories={categories}
+          imagePath={imagePath}
+          blog_list={blog_list}
+        />
+      </div>
 
-          <h3 className="text-base lg:text-lg text-gray-500">
-            You are viewing
-          </h3>
-          <h1 className="text-3xl lg:text-5xl font-bold">{category}</h1>
-        </div>
+      <div className="mb-12  mt-24 lg:mt-26 px-4 mx-auto max-w-[1500px] ">
+        <p className="text-secondary font-bold text-center">You are viewing</p>
+        <h1 className="text-5xl text-black font-bold capitalize py-1 mb-7 min-w-full text-center">
+          {category?.replaceAll("-", " ")}
+        </h1>
 
-        <div className="flex flex-wrap lg:flex-row gap-4 lg:gap-8 text-lg lg:text-xl font-bold items-center justify-center border-b-2 pb-4 lg:pb-6">
-          <Link href="/">ALL</Link>
-          {data.map((item, index) => (
-            <div key={index}>
-              <Link href={`/${item.category}`}>{item.category}</Link>
-            </div>
+        <div className="flex gap-6 mb-10 justify-center">
+          {categories?.map((item, index) => (
+            <Link
+              key={index}
+              title={item?.title || "Category Link"}
+              href={`/${sanitizeUrl(item.title)}`}
+              className={cn(
+                "uppercase text-lg font-bold text-black hover:border-b transition-all",
+                category === item.title && "text-secondary"
+              )}
+            >
+              {item.title}
+            </Link>
           ))}
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-12 ">
-          <div className="flex flex-col lg:w-[70%]  gap-4">
-            <Posts data={postsdata} />
-            <Posts data={Latestpostsdata} />
-          </div>
+        <div className="grid lg:grid-cols-rightBar  gap-12 w-full border-t ">
+          <div>
+            {filteredBlogList?.length === 0 && (
+              <div className="flex items-center justify-center border px-10 py-40 text-lg bg-gray-200">
+                No articles found related to {category}
+              </div>
+            )}
 
-          <div className="lg:w-[30%] ">
-            <RightBar image={image1} data={latestrightbar} />
+            {filteredBlogList.map((item, index) => (
+              <div key={index} className=" my-10 ">
+                <Link
+                  title={item?.title || "Article Link"}
+                  href={`/${sanitizeUrl(item.article_category)}/${sanitizeUrl(
+                    item?.title
+                  )}`}
+                >
+                  <p className="font-bold text-5xl text-center my-4 text-secondary transition-colors">
+                    {item.title}
+                  </p>
+                  <div className="flex items-center gap-2 mt-1  mb-5 justify-center">
+                    <p className="text-sm text-gray-600 font-semibold">
+                      <span className="text-gray-700 text-sm">By</span>:{" "}
+                      {item.author}
+                    </p>
+                    <span className="text-gray-500"> . </span>
+                    <p className="text-sm text-gray-700 font-semibold">
+                      {dayjs(item?.published_at)?.format("MMM D, YYYY")}
+                    </p>
+                  </div>
+                  <div className="overflow-hidden relative min-h-40 rounded lg:min-h-lvh w-full bg-black flex-1">
+                    <Image
+                      title={item?.title || "Blog Image"}
+                      src={
+                        item.image
+                          ? `${imagePath}/${item.image}`
+                          : "/no-image.png"
+                      }
+                      fill={true}
+                      loading="lazy"
+                      alt={item?.title || "Blog Image"}
+                      className="min-w-full h-full  object-cover absolute top-0 hover:scale-125 transition-all"
+                    />
+                  </div>
+                </Link>
+                <Link
+                  title={`View ${category} category`}
+                  className="flex justify-start"
+                  href={`/${sanitizeUrl(category)}`}
+                >
+                  <Badge className="mt-4 inline-block text-white">
+                    {category}
+                  </Badge>
+                </Link>
+
+                <p className="text-gray-600 mt-2 mb-12">{item.tagline}</p>
+                <Link
+                  href={`/${sanitizeUrl(category)}/${sanitizeUrl(item?.title)}`}
+                  className="font-bold text-secondary border-2 border-secondary rounded-full p-6 hover:bg-secondary hover:text-black/60 transition-colors"
+                >
+                  Continue Reading
+                </Link>
+              </div>
+            ))}
+          </div>
+          <div>
+            <RightBar
+              about_me={about_me}
+              blog_list={blog_list}
+              imagePath={imagePath}
+            />
           </div>
         </div>
-        
-      </Container>
-      <Footer />
+      </div>
+
+      <Footer
+        about_me={about_me}
+        logo={logo}
+        footer_text=""
+        categories={categories}
+        imagePath={imagePath}
+        copyright={copyright}
+      />
+
+      <JsonLd
+        data={{
+          "@context": "https://www.schema.org",
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": `https://${domain}/`,
+              url: `https://${domain}/`,
+              name: meta?.title,
+              isPartOf: {
+                "@id": `https://${domain}`,
+              },
+              description: meta?.description,
+              inLanguage: "en-US",
+              primaryImageOfPage: {
+                "@type": "ImageObject",
+                url: `${imagePath}/${banner?.file_name}`,
+                width: 1920,
+                height: 1080,
+              },
+            },
+            {
+              "@type": "Organization",
+              "@id": `https://${domain}`,
+              name: domain,
+              url: `https://${domain}`,
+              logo: {
+                "@type": "ImageObject",
+                url: `${imagePath}/${logo.file_name}`,
+                width: logo.width,
+                height: logo.height,
+              },
+              sameAs: [
+                "https://www.facebook.com",
+                "https://www.twitter.com",
+                "https://instagram.com",
+              ],
+            },
+            {
+              "@type": "ItemList",
+              url: `https://${domain}`,
+              name: "blog",
+              itemListElement: blog_list?.map((blog, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                item: {
+                  "@type": "Article",
+                  url: `https://${domain}/${sanitizeUrl(
+                    blog?.article_category
+                  )}/${sanitizeUrl(blog?.title)}`,
+                  name: blog?.title,
+                },
+              })),
+            },
+          ],
+        }}
+      />
     </>
   );
+}
+
+export async function getServerSideProps({ req, query }) {
+  const domain = getDomain(req?.headers?.host);
+  const { category } = query;
+
+  const logo = await callBackendApi({
+    domain,
+    query,
+    type: "logo",
+  });
+
+  const favicon = await callBackendApi({ domain, query, type: "favicon" });
+  const banner = await callBackendApi({ domain, query, type: "banner" });
+
+  const copyright = await callBackendApi({
+    domain,
+    query,
+    type: "copyright",
+  });
+  const blog_list = await callBackendApi({ domain, query, type: "blog_list" });
+  const categories = await callBackendApi({
+    domain,
+    query,
+    type: "categories",
+  });
+  const meta = await callBackendApi({ domain, query, type: "meta_category" });
+  const about_me = await callBackendApi({ domain, query, type: "about_me" });
+  const layout = await callBackendApi({ domain, type: "layout" });
+
+  let project_id = logo?.data[0]?.project_id || null;
+  let imagePath = await getImagePath(project_id, domain);
+
+  const categoryExists = categories?.data[0]?.value?.some(
+    (cat) =>
+      cat?.title?.toLowerCase() === category?.replaceAll("-", " ").toLowerCase()
+  );
+
+  if (!categoryExists) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      domain,
+      imagePath,
+      meta: meta?.data[0]?.value || null,
+      favicon: favicon?.data[0]?.file_name || null,
+      logo: logo?.data[0],
+      layout: layout?.data[0]?.value || null,
+      banner: banner?.data[0] || null,
+      blog_list: blog_list?.data[0]?.value || null,
+      categories: categories?.data[0]?.value || null,
+      copyright: copyright?.data[0]?.value || null,
+      domain: domain === "hellospace.us" ? req?.headers?.host : domain,
+      about_me: about_me?.data[0] || null,
+    },
+  };
 }

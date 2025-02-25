@@ -13,10 +13,11 @@ export default {
       },
       gridTemplateColumns: {
         'blogcard': '0.43fr 0.57fr  ',
+        'rightBar':  '1fr 0.5fr',
         
         
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
