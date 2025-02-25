@@ -141,13 +141,14 @@ export default function Category({
             )}
 
             {filteredBlogList.map((item, index) => (
-              <div key={index} className=" my-10 ">
+              <div key={index} className=" my-10 border-b border-gray-300 pb-12 ">
                 <Link
                   title={item?.title || "Article Link"}
                   href={`/${sanitizeUrl(item.article_category)}/${sanitizeUrl(
                     item?.title
                   )}`}
-                >
+                >  
+                <p className="text-black  capitalize text-center font-semibold text-xl " >{category}</p>
                   <p className="font-bold text-5xl text-center my-4 text-secondary transition-colors">
                     {item.title}
                   </p>
