@@ -22,7 +22,7 @@ export default function BlogBanner({ myblog, imagePath }) {
         />
       </div>
       
-      <div className="flex flex-col items-center gap-8 text-center lg:w-[1000px]">
+      <div className="flex flex-col items-center gap-7 text-center lg:w-[1000px]">
         <Badge>{myblog?.value?.article_category}</Badge>
         <h1
           style={{ fontSize: myblog?.value?.titleFontSize || 48 }}
@@ -37,7 +37,7 @@ export default function BlogBanner({ myblog, imagePath }) {
         >
           {myblog?.value?.tagline}
         </p>
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center  gap-4">
           <p>{myblog?.value?.author}</p> - <p>{myblog?.value?.published_at}</p>
         </div>
       </div>
