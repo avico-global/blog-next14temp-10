@@ -23,8 +23,7 @@ export default function Navbar({
   logo_black,
   blog_list,
 }) {
-  const li =
-    " py-2 bg-black text-white hover:bg-white hover:text-black px-3 rounded-xl transition-all duration-300";
+  const li = "py-2 text-gray-200 hover:text-white relative after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-white after:left-0 after:bottom-0 after:transition-all after:duration-300 hover:after:w-full";
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(false);
   const [sidebar, setSidebar] = useState(false);
@@ -100,45 +99,34 @@ export default function Navbar({
 
   return (
     <Fullcontainer
-      className={`fixed top-0 left-0 w-full bg-black text-white shadow-lg transition-transform duration-300 z-40 ${
+      className={`fixed top-0 left-0 w-full bg-black/90 backdrop-blur-md text-white border-b border-white/10 transition-all duration-300 z-40 ${
         visible ? "md:translate-y-0" : "md:-translate-y-full"
       }`}
     >
-      <Container className="lg:w-[900px] py-4 md:py-0 px-5">
-        <div className="  flex justify-between items-center  mx-auto text-white px-5">
-          <ul className="flex justify-between items-center gap-4 text-sm font-semibold">
-            <Link href="/" title="Facebook">
-              <Facebook size={20} />
-            </Link>
-            <Link href="/" title="Instagram">
-              <Instagram size={20} />
-            </Link>
-            <Link href="/" title="Twitter">
-              <Twitter size={20} />
-            </Link>
-          </ul>
+      <Container className="lg:w-[1200px] py-4 md:py-2 px-5">
+        <div className="flex justify-between items-center mx-auto text-white">
+          <div className="lg:hidden">
+            <Logo logo={logo} logo_black={logo_black} imagePath={imagePath} />
+          </div>
 
-          <ul className=" hidden md:flex justify-between items-center text-md font-semibold">
+          <ul className="hidden md:flex items-center space-x-8 text-sm font-medium">
             <Link href="/" className={li} title="Home">
               Home
             </Link>
+            
             <div
               onMouseEnter={() => setDropdownOpen(true)}
               onMouseLeave={() => setDropdownOpen(false)}
-              className="py-4 "
+              className="relative py-4"
             >
-              <div className=" group py-2 bg-black text-white hover:bg-white hover:text-black px-3 rounded-xl transition-all duration-500">
-                <div className="flex items-center gap-1 cursor-pointer ">
-                  Categories
-                </div>
+              <div className="group cursor-pointer">
+                <span className={li}>Categories</span>
                 <div
-                  className={`absolute top-16 left-[10%] bg-black w-[80%] text-white h-[300px]  rounded-lg z-10 shadow-lg transition-all duration-300 ${
+                  className={`absolute top-16 left-1/2 -translate-x-1/2 bg-black/95 backdrop-blur-lg w-[800px] text-white rounded-xl z-10 shadow-2xl border border-white/10 transition-all duration-300 ${
                     dropdownOpen
                       ? "opacity-100 visible translate-y-0"
                       : "opacity-0 invisible translate-y-[-10px]"
                   }`}
-                  onMouseEnter={() => setDropdownOpen(true)}
-                  onMouseLeave={() => setDropdownOpen(false)}
                 >
                   <Categories categories={categories} imagePath={imagePath} />
                 </div>
@@ -151,35 +139,39 @@ export default function Navbar({
             <Link href="/contact" className={li} title="Contact">
               Contact
             </Link>
-
-            <div className="flex items-center justify-end gap-3 text-white relative">
-              <div className="relative">
-                <button onClick={handleSearchClick} className="cursor-pointer">
-                  <Search className="w-7" />
-                </button>
-
-                {isSearchOpen && (
-                  <SearchOverlay
-                    isOpen={isSearchOpen}
-                    onClose={() => setIsSearchOpen(false)}
-                    searchQuery={searchQuery}
-                    onSearchChange={handleSearchChange}
-                    filteredBlogs={filteredBlogs}
-                    searchRef={searchRef}
-                    imagePath={imagePath}
-                  />
-                )}
-              </div>
-            </div>
           </ul>
 
-          <div className=" flex lg:hidden justify-between items-center gap-4 text-sm font-semibold">
-            <button onClick={() => setSidebar(!sidebar)}>
+          <div className="hidden lg:block">
+            <Logo logo={logo} logo_black={logo_black} imagePath={imagePath} />
+          </div>
+
+          <div className="flex items-center space-x-6">
+            <div className="relative">
+              <button 
+                onClick={handleSearchClick} 
+                className="p-2 hover:bg-white/10 rounded-full transition-colors"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+              {isSearchOpen && (
+                <SearchOverlay
+                  isOpen={isSearchOpen}
+                  onClose={() => setIsSearchOpen(false)}
+                  searchQuery={searchQuery}
+                  onSearchChange={handleSearchChange}
+                  filteredBlogs={filteredBlogs}
+                  searchRef={searchRef}
+                  imagePath={imagePath}
+                />
+              )}
+            </div>
+
+            <button 
+              onClick={() => setSidebar(!sidebar)} 
+              className="lg:hidden p-2 hover:bg-white/10 rounded-full transition-colors"
+            >
               <Menu size={20} />
             </button>
-          </div>
-          <div className="hidden lg:flex  ">
-            <Logo logo={logo} logo_black={logo_black} imagePath={imagePath} />
           </div>
         </div>
 
@@ -276,27 +268,27 @@ export default function Navbar({
 
 const Categories = ({ categories, imagePath }) => {
   return (
-    <div className="w-full mt-8 bg-black rounded-lg p-6">
-      <div className="grid grid-cols-3 gap-5">
+    <div className="w-full p-8">
+      <div className="grid grid-cols-3 gap-8">
         {categories?.map((category, index) => (
           <Link
-            title={`View ${category.title} category` || "Category"}
+            title={`View ${category.title} category`}
             key={index}
             href={`/${encodeURI(category.title.toLowerCase())}`}
-            className="flex flex-col items-center transition-all duration-500 hover:opacity-80"
+            className="group"
           >
-            <div className="rounded-lg aspect-[4/3] flex items-center justify-center overflow-hidden">
+            <div className="rounded-xl overflow-hidden">
               <Image
                 src={`${imagePath}/${category.image}`}
                 title={category.title}
                 alt={category.title}
                 height={170}
                 width={230}
-                className="object-cover w-full h-full"
+                className="object-cover w-full h-full transform transition-transform duration-500 group-hover:scale-110"
               />
             </div>
-            <div className="mt-2 gap-1 flex flex-col text-center text-white">
-              <p className="font-semibold text-xs capitalize">
+            <div className="mt-3">
+              <p className="font-medium text-sm capitalize group-hover:text-white/80 transition-colors">
                 {category.title}
               </p>
             </div>
