@@ -62,7 +62,13 @@ export default function Category({
     <>
       <Head>
         <meta charSet="UTF-8" />
-        <title>{meta?.title}</title>
+        <title>
+          {meta?.title?.replaceAll(
+            "##category##",
+            category?.replaceAll("-", " ")
+          )}
+        </title>
+
         <meta name="description" content={meta?.description} />
         <link rel="author" href={`https://www.${domain}`} />
         <link rel="publisher" href={`https://www.${domain}`} />
