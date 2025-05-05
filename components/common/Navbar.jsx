@@ -109,7 +109,7 @@ export default function Navbar({
             <Logo logo={logo} logo_black={logo_black} imagePath={imagePath} />
           </div>
 
-          <ul className="hidden md:flex items-center space-x-8 text-sm font-medium">
+          <ul className="hidden relative md:flex items-center space-x-8 text-sm font-medium">
             <Link href="/" className={li} title="Home">
               Home
             </Link>
@@ -117,10 +117,10 @@ export default function Navbar({
             <div
               onMouseEnter={() => setDropdownOpen(true)}
               onMouseLeave={() => setDropdownOpen(false)}
-              className="relative py-4"
+              className=" py-4"
             >
               <div className="group cursor-pointer">
-                <span className={li}>Categories</span>
+                <span className={li}    >Categories</span>
                 <div
                   className={`absolute top-16 left-1/2 -translate-x-1/2 bg-black/95 backdrop-blur-lg w-[800px] text-white rounded-xl z-10 shadow-2xl border border-white/10 transition-all duration-300 ${
                     dropdownOpen
@@ -270,7 +270,7 @@ const Categories = ({ categories, imagePath }) => {
   return (
     <div className="w-full p-8">
       <div className="grid grid-cols-3 gap-8">
-        {categories?.map((category, index) => (
+        {categories?.slice(0, 3).map((category, index) => (
           <Link
             title={`View ${category.title} category`}
             key={index}
@@ -284,7 +284,7 @@ const Categories = ({ categories, imagePath }) => {
                 alt={category.title}
                 height={170}
                 width={230}
-                className="object-cover w-full h-full transform transition-transform duration-500 group-hover:scale-110"
+                className="object-cover w-full h-full aspect-[16/9] transform transition-transform duration-500 group-hover:scale-110"
               />
             </div>
             <div className="mt-3">
