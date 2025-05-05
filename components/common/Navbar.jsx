@@ -117,12 +117,12 @@ export default function Navbar({
             <div
               onMouseEnter={() => setDropdownOpen(true)}
               onMouseLeave={() => setDropdownOpen(false)}
-              className=" py-4"
+              className="relative py-4"
             >
               <div className="group cursor-pointer">
-                <span className={li}    >Categories</span>
+                <span className={li}>Categories</span>
                 <div
-                  className={`absolute top-16 left-1/2 -translate-x-1/2 bg-black/95 backdrop-blur-lg w-[800px] text-white rounded-xl z-10 shadow-2xl border border-white/10 transition-all duration-300 ${
+                  className={`absolute top-[60px] left-0 right-0 mx-auto bg-black/95 backdrop-blur-lg w-[800px] text-white rounded-xl z-10 shadow-2xl border border-white/10 transition-all duration-300 ${
                     dropdownOpen
                       ? "opacity-100 visible translate-y-0"
                       : "opacity-0 invisible translate-y-[-10px]"
