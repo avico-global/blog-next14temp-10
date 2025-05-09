@@ -29,7 +29,7 @@ export default function HeroNavbar({
     " py-2 bg-transparent  text-white hover:bg-white hover:text-black px-3 rounded-xl transition-all duration-300";
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [openSearch, setOpenSearch] = useState(false);
   const [filteredBlogs, setFilteredBlogs] = useState([]);
   const searchRef = useRef(null);
@@ -52,35 +52,36 @@ export default function HeroNavbar({
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
         setOpenSearch(false);
-        setSearchQuery('');
+        setSearchQuery("");
         setFilteredBlogs([]);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   const handleSearchToggle = () => {
     setOpenSearch(!openSearch);
-    setSearchQuery('');
+    setSearchQuery("");
     setFilteredBlogs([]);
   };
 
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-    
-    if (query.trim() === '') {
+
+    if (query.trim() === "") {
       setFilteredBlogs([]);
       return;
     }
 
-    const filtered = blog_list?.filter((blog) =>
-      blog.title.toLowerCase().includes(query.toLowerCase())
-    ) || [];
+    const filtered =
+      blog_list?.filter((blog) =>
+        blog.title.toLowerCase().includes(query.toLowerCase())
+      ) || [];
     setFilteredBlogs(filtered);
   };
 
@@ -88,18 +89,6 @@ export default function HeroNavbar({
     <Fullcontainer className={`relative hidden md:block ${className || ""}`}>
       <Container className="border-y-[1px] border-gray-100 border-opacity-20">
         <div className="flex justify-between items-center mx-auto text-white px-5">
-          <ul className="flex justify-between items-center gap-4 text-sm font-semibold">
-            <Link href="/" title="Follow us on Facebook">
-              <Facebook size={20} />
-            </Link>
-            <Link href="/" title="Follow us on Instagram">
-              <Instagram size={20} />
-            </Link>
-            <Link href="/" title="Follow us on Twitter">
-              <Twitter size={20} />
-            </Link>
-          </ul>
-
           <Logo logo={logo} imagePath={imagePath} />
 
           <ul className="hidden md:flex justify-between items-center text-md font-semibold">
@@ -112,7 +101,9 @@ export default function HeroNavbar({
               className="py-4"
             >
               <div className="py-2 text-white hover:bg-white hover:text-black px-3 rounded-xl transition-all duration-500">
-                <div className="flex items-center gap-1 cursor-pointer">Categories</div>
+                <div className="flex items-center gap-1 cursor-pointer">
+                  Categories
+                </div>
               </div>
             </div>
             <Link href="/about" className={li} title="About me">
@@ -121,9 +112,11 @@ export default function HeroNavbar({
             <Link href="/contact" className={li} title="Contact">
               Contact
             </Link>
-            <div className="flex items-center justify-end gap-3 text-white relative">
+            
+          </ul>
+          <div className="flex items-center justify-end gap-3 text-white relative">
               <div className="relative">
-                <button 
+                <button
                   onClick={(e) => {
                     e.stopPropagation();
                     setOpenSearch(true);
@@ -146,9 +139,6 @@ export default function HeroNavbar({
                 )}
               </div>
             </div>
-          </ul>
-
-       
         </div>
       </Container>
 
@@ -201,23 +191,20 @@ const Categories = ({ categories, imagePath }) => {
   );
 };
 
-const SearchOverlay = ({ 
-  isOpen, 
-  onClose, 
-  searchQuery, 
-  onSearchChange, 
-  filteredBlogs, 
+const SearchOverlay = ({
+  isOpen,
+  onClose,
+  searchQuery,
+  onSearchChange,
+  filteredBlogs,
   searchRef,
-  imagePath 
+  imagePath,
 }) => {
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 transition-all duration-300">
-      <div 
-        ref={searchRef}
-        className="w-full max-w-3xl mx-auto mt-20 px-4"
-      >
+      <div ref={searchRef} className="w-full max-w-3xl mx-auto mt-20 px-4">
         <div className="relative bg-black rounded-lg shadow-xl">
           <input
             type="text"
@@ -227,7 +214,7 @@ const SearchOverlay = ({
             placeholder="Search articles..."
             autoFocus
           />
-          <button 
+          <button
             onClick={onClose}
             className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors"
           >
@@ -242,7 +229,9 @@ const SearchOverlay = ({
                 {filteredBlogs.map((item, index) => (
                   <Link
                     key={index}
-                    href={`/${sanitizeUrl(item.article_category)}/${sanitizeUrl(item.title)}`}
+                    href={`/${sanitizeUrl(item.article_category)}/${sanitizeUrl(
+                      item.title
+                    )}`}
                     className="block p-4 hover:bg-white/5 transition-colors group"
                     onClick={onClose}
                   >
