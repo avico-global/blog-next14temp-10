@@ -73,7 +73,7 @@ export default function Posts({ posts, imagePath }) {
                     >
                       <Button 
                         text="VIEW THE POST" 
-                        className="w-fit my-3 md:my-5 text-sm md:text-base" 
+                        className="w-fit my-3 md:my-5 px-4 text-sm md:text-base" 
                       />
                     </Link>
 

@@ -98,17 +98,16 @@ export default function About({
         />
       </div>
 
-      <Container className="mt-10 px-5">
-        <nav className="flex items-center gap-2 text-sm font-medium">
-          <Link
-            href="/"
-            className="text-gray-400 hover:text-white transition-colors"
-          >
-            Home
-          </Link>
-          <ChevronRight size={16} className="text-gray-600" />
-          <span className="text-gray-400">About</span>
-        </nav>
+      <Container className="mt-10 flex gap-1 mx-auto max-w-[1400px]  py-4 md:py-0 px-4 ">
+        <Link href="/">Home</Link>
+        <ChevronRight size={20} />
+        <Link
+          title="About"
+          href="/about"
+          className="text-gray-500"
+        >
+          About
+        </Link>
       </Container>
 
       <Fullcontainer className="bg-gradient-to-b  min-h-screen">

@@ -15,6 +15,7 @@ import {
   X,
 } from "lucide-react";
 import Logo from "./Logo";
+import { useRouter } from "next/router";
 
 export default function Navbar({
   categories,
@@ -33,6 +34,7 @@ export default function Navbar({
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [filteredBlogs, setFilteredBlogs] = useState([]);
   const searchRef = useRef(null);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,6 +52,10 @@ export default function Navbar({
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  useEffect(() => {
+    setSidebar(false);
+  }, [router]);
 
   useEffect(() => {
     // Handle clicks anywhere in the document
@@ -211,7 +217,7 @@ export default function Navbar({
                         href={`/${sanitizeUrl(
                           item.article_category
                         )}/${sanitizeUrl(item.title)}`}
-                        onClick={closeSidebar}
+                        
                       >
                         <div className="p-2 hover:bg-gray-700 border-b border-gray-700">
                           {item.title}
@@ -234,7 +240,7 @@ export default function Navbar({
                   className={cn(
                     "font-semibold text-white capitalize border-transparent transition-all py-2 px-2 border-b border-gray-600"
                   )}
-                  onClick={closeSidebar}
+                 
                 >
                   {item.title}
                 </Link>

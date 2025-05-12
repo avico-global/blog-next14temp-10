@@ -31,7 +31,7 @@ export default function Terms({
   terms,
   categories,
   about_me,
- copyright,
+  copyright,
 }) {
   const markdownIt = new MarkdownIt();
   const content = markdownIt?.render(terms || "");
@@ -54,10 +54,7 @@ export default function Terms({
         <meta name="description" content={meta?.description} />
         <link rel="author" href={`https://${domain}`} />
         <link rel="publisher" href={`https://${domain}`} />
-        <link
-          rel="canonical"
-          href={`https://${domain}/terms-and-conditions`}
-        />
+        <link rel="canonical" href={`https://${domain}/terms-and-conditions`} />
         {/* <meta name="robots" content="noindex" /> */}
         <meta name="theme-color" content="#008DE5" />
         <link rel="manifest" href="/manifest.json" />
@@ -101,14 +98,15 @@ export default function Terms({
           blog_list={blog_list}
         />
       </div>
-      
-    
+
       <Container className="mt-10 flex gap-1 mx-auto max-w-[1400px]  py-4 md:py-0 px-4 ">
         <Link href="/">Home</Link>
         <ChevronRight size={20} />
         <Link
-        title="term & conditions"
-        href="/terms-and-conditions" className="text-gray-500">
+          title="term & conditions"
+          href="/terms-and-conditions"
+          className="text-gray-500"
+        >
           Terms & Conditions
         </Link>
       </Container>
@@ -122,8 +120,8 @@ export default function Terms({
       </Fullcontainer>
 
       <Footer
-      about_me={about_me}
-      logo={logo}
+        about_me={about_me}
+        logo={logo}
         imagePath={imagePath}
         blog_list={blog_list}
         categories={categories}
@@ -169,11 +167,10 @@ export async function getServerSideProps({ req }) {
     domain,
     type: "categories",
   });
- 
+
   const terms = await callBackendApi({ domain, type: "terms" });
   const layout = await callBackendApi({ domain, type: "layout" });
   const about_me = await callBackendApi({ domain, type: "about_me" });
-
 
   let page = null;
   if (Array.isArray(layoutPages?.data) && layoutPages.data.length > 0) {
