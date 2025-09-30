@@ -1,10 +1,7 @@
-import React from 'react'
+import React from "react";
 
-export default function Container({children, className}) {
+export default function Container({ children, className }) {
   return (
-    <div className={`container mx-auto ${className}`}>
-      {children}
-    </div>
-  )
-
+    <div className={`container mx-auto max-w-7xl ${className}`}>{children}</div>
+  );
 }

@@ -5,44 +5,56 @@ import image1 from "@/public/hero2.webp";
 import Button2 from "../common/Button2";
 import Logo from "../common/Logo";
 
-function Herotext({ data, categories,blog_list, imagePath, logo }) {
+function Herotext({ data, categories, blog_list, imagePath, logo }) {
   const scrollToPosts = () => {
-    const element = document.getElementById('all-posts');
-    element?.scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById("all-posts");
+    element?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div className="absolute left-1/2 -translate-x-1/2 text-center w-full px-4 md:px-0 md:w-[1000px] items-center flex flex-col justify-center top-[50%] -translate-y-1/2 md:top-10 md:translate-y-0">
-      <div className="hidden lg:flex">
+    <div className="absolute left-1/2 -translate-x-1/2 h-full text-center w-full px-4 md:px-0 md:w-[1230px] items-center flex flex-col justify-start top-[50%] -translate-y-1/2 md:top-10 md:translate-y-0">
+      <div className="hidden lg:flex py-10">
         <Logo logo={logo} imagePath={imagePath} />
       </div>
 
-      <HeroNavbar blog_list={blog_list} categories={categories} imagePath={imagePath} />
-      <h1
-        className="text-white text-3xl mt-11 md:text-5xl lg:text-[70px] font-bold py-3 md:py-5 w-full md:w-[800px] text-center leading-tight md:leading-none capitalize px-4 md:px-0"
-        style={{ fontSize: data.titleFontSize || undefined }}
-      >
-        {data.title}
-      </h1>
-      <p
-        className="text-gray-200 text-xs font-light py-5"
-        style={{ fontSize: data.taglineFontSize || undefined }}
-      >
-        {data.tagline}
-      </p>
-
-      <Button2
-        text={data.buttonText || "Read More"}
-        className="text-sm font-bold py-2 px-6 z-10 capitalize mt-2 md:mt-0"
-        onClick={scrollToPosts}
+      <HeroNavbar
+        blog_list={blog_list}
+        categories={categories}
+        imagePath={imagePath}
       />
+      <div className="flex flex-col items-start md:items-center  justify-center md:justify-start  pt-20 md:pt-10 h-full">
+        <h1
+          className="text-white text-3xl mt-11 md:text-5xl lg:text-[70px] font-bold py-3 md:py-5 w-full md:w-[800px] text-start md:text-center leading-tight md:leading-none capitalize px-0"
+          style={{ fontSize: data.titleFontSize || undefined }}
+        >
+          {data.title}
+        </h1>
+        <p
+          className="text-gray-200 text-xs font-light py-5 text-start md:text-center"
+          style={{ fontSize: data.taglineFontSize || undefined }}
+        >
+          {data.tagline}
+        </p>
+
+        <Button2
+          text={data.buttonText || "Read More"}
+          className="text-sm font-bold py-2 px-6 z-10 capitalize mt-2 md:mt-0"
+          onClick={scrollToPosts}
+        />
+      </div>
     </div>
   );
 }
-
-export default function Hero({ data, image, categories, imagePath, logo,blog_list }) {
+export default function Hero({
+  data,
+  image,
+  categories,
+  imagePath,
+  logo,
+  blog_list,
+}) {
   return (
-    <div className="relative w-full h-[80vh] md:h-screen overflow-hidden">
+    <div className="relative w-full h-[80vh] lg:h-screen max-h-[800px] overflow-hidden">
       <div
         className="absolute w-full h-full"
         style={{

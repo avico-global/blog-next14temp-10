@@ -86,7 +86,7 @@ export default function HeroNavbar({
   };
 
   return (
-    <Fullcontainer className={`relative hidden md:block ${className || ""}`}>
+    <Fullcontainer className={`relative hidden  md:block ${className || ""}`}>
       <Container className="border-y-[1px] border-gray-100 border-opacity-20">
         <div className="flex justify-between items-center mx-auto text-white px-5">
           <Logo logo={logo} imagePath={imagePath} />
@@ -112,33 +112,32 @@ export default function HeroNavbar({
             <Link href="/contact" className={li} title="Contact">
               Contact
             </Link>
-            
           </ul>
           <div className="flex items-center justify-end gap-3 text-white relative">
-              <div className="relative">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setOpenSearch(true);
-                  }}
-                  className="cursor-pointer"
-                >
-                  <Search className="w-7" />
-                </button>
+            <div className="relative">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpenSearch(true);
+                }}
+                className="cursor-pointer"
+              >
+                <Search className="w-7" />
+              </button>
 
-                {openSearch && (
-                  <SearchOverlay
-                    isOpen={openSearch}
-                    onClose={() => setOpenSearch(false)}
-                    searchQuery={searchQuery}
-                    onSearchChange={handleSearchChange}
-                    filteredBlogs={filteredBlogs}
-                    searchRef={searchRef}
-                    imagePath={imagePath}
-                  />
-                )}
-              </div>
+              {openSearch && (
+                <SearchOverlay
+                  isOpen={openSearch}
+                  onClose={() => setOpenSearch(false)}
+                  searchQuery={searchQuery}
+                  onSearchChange={handleSearchChange}
+                  filteredBlogs={filteredBlogs}
+                  searchRef={searchRef}
+                  imagePath={imagePath}
+                />
+              )}
             </div>
+          </div>
         </div>
       </Container>
 
