@@ -12,7 +12,7 @@ function Herotext({ data, categories, blog_list, imagePath, logo }) {
   };
 
   return (
-    <div className="absolute left-1/2 -translate-x-1/2 h-full text-center w-full px-4 md:px-0 md:w-[1230px] items-center flex flex-col justify-start top-[50%] -translate-y-1/2 md:top-10 md:translate-y-0">
+    <div className="absolute left-1/2 -translate-x-1/2 h-full text-center w-full px-4 md:px-0 lg:w-[1280px] items-center flex flex-col justify-start top-[50%] -translate-y-1/2 md:top-10 md:translate-y-0">
       <div className="hidden lg:flex py-10">
         <Logo logo={logo} imagePath={imagePath} />
       </div>

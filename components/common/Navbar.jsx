@@ -24,11 +24,12 @@ export default function Navbar({
   logo_black,
   blog_list,
 }) {
-  const li = "py-2 text-gray-200 hover:text-white relative after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-white after:left-0 after:bottom-0 after:transition-all after:duration-300 hover:after:w-full";
+  const li =
+    "py-2 text-gray-200 hover:text-white relative after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-white after:left-0 after:bottom-0 after:transition-all after:duration-300 hover:after:w-full";
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(false);
   const [sidebar, setSidebar] = useState(false);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -119,7 +120,7 @@ export default function Navbar({
             <Link href="/" className={li} title="Home">
               Home
             </Link>
-            
+
             <div
               onMouseEnter={() => setDropdownOpen(true)}
               onMouseLeave={() => setDropdownOpen(false)}
@@ -153,8 +154,8 @@ export default function Navbar({
 
           <div className="flex items-center space-x-6">
             <div className="relative">
-              <button 
-                onClick={handleSearchClick} 
+              <button
+                onClick={handleSearchClick}
                 className="p-2 hover:bg-white/10 rounded-full transition-colors"
               >
                 <Search className="w-5 h-5" />
@@ -172,8 +173,8 @@ export default function Navbar({
               )}
             </div>
 
-            <button 
-              onClick={() => setSidebar(!sidebar)} 
+            <button
+              onClick={() => setSidebar(!sidebar)}
               className="lg:hidden p-2 hover:bg-white/10 rounded-full transition-colors"
             >
               <Menu size={20} />
@@ -217,7 +218,6 @@ export default function Navbar({
                         href={`/${sanitizeUrl(
                           item.article_category
                         )}/${sanitizeUrl(item.title)}`}
-                        
                       >
                         <div className="p-2 hover:bg-gray-700 border-b border-gray-700">
                           {item.title}
@@ -240,7 +240,6 @@ export default function Navbar({
                   className={cn(
                     "font-semibold text-white capitalize border-transparent transition-all py-2 px-2 border-b border-gray-600"
                   )}
-                 
                 >
                   {item.title}
                 </Link>

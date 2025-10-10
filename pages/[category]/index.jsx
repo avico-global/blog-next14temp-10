@@ -147,14 +147,19 @@ export default function Category({
             )}
 
             {filteredBlogList.map((item, index) => (
-              <div key={index} className=" my-10 border-b border-gray-300 pb-12 ">
+              <div
+                key={index}
+                className=" my-10 border-b border-gray-300 pb-12 "
+              >
                 <Link
                   title={item?.title || "Article Link"}
                   href={`/${sanitizeUrl(item.article_category)}/${sanitizeUrl(
                     item?.title
                   )}`}
-                >  
-                <p className="text-black  capitalize text-center font-semibold text-xl " >{category}</p>
+                >
+                  <p className="text-black  capitalize text-center font-semibold text-xl ">
+                    {category}
+                  </p>
                   <p className="font-bold text-5xl text-center my-4 text-secondary transition-colors">
                     {item.title}
                   </p>
@@ -179,7 +184,7 @@ export default function Category({
                       fill={true}
                       loading="lazy"
                       alt={item?.title || "Blog Image"}
-                      className="min-w-full h-full  object-cover absolute top-0 hover:scale-125 transition-all"
+                      className="min-w-full h-full  object-cover absolute top-0 hover:scale-125 transition-all duration-1000"
                     />
                   </div>
                 </Link>

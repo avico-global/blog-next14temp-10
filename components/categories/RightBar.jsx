@@ -43,14 +43,14 @@ export default function RightBar({ about_me = {}, blog_list = [], imagePath }) {
               sanitizeUrl(item.article_category)
             )}/${encodeURI(sanitizeUrl(item.title))}`}
           >
-            <div className="flex gap-4">
+            <div className="flex gap-4 group">
               <div className="aspect-[1/1]">
                 <Image
                   src={
                     item.image ? `${imagePath}/${item.image}` : "/no-image.png"
                   }
                   title={item?.tagline || item?.altText || "Article Thumbnail"}
-                  className="w-[100px] h-full object-cover rounded-lg"
+                  className="w-[100px] h-full object-cover rounded-lg group-hover:scale-110 transition-all duration-500"
                   width={100}
                   height={100}
                   alt={item?.tagline || item?.altText || "Article Thumbnail"}

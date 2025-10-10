@@ -11,7 +11,7 @@ import { sanitizeUrl } from "@/lib/myFun.js";
 export default function Posts({ posts, imagePath }) {
   return (
     <div id="all-posts">
-      <FullContainer className="py-16 md:py-32 px-8 md:px-7">
+      <FullContainer className="py-16 md:py-32 px-4 md:px-0">
         <Container className={""}>
           {/* Enhanced Heading Section */}
           <div className="mb-24 md:mb-32 text-center">

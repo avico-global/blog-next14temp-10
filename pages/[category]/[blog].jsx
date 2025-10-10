@@ -101,14 +101,13 @@ export default function blogs({
           />
         </div>
 
-
         <BlogBanner
           myblog={myblog}
           imagePath={imagePath}
           blog_type={blog_type}
         />
         <Fullcontainer>
-          <div className="text-center lg:w-[1000px] mx-auto mb-8">
+          <div className="text-center lg:w-[1000px] px-4 mx-auto mb-8">
             <div className="flex text-start justify-start">
               <article className="prose lg:prose-xl max-w-full">
                 <div dangerouslySetInnerHTML={{ __html: content }} />

@@ -86,7 +86,7 @@ export default function HeroNavbar({
   };
 
   return (
-    <Fullcontainer className={`relative hidden  md:block ${className || ""}`}>
+    <Fullcontainer className={`relative hidden md:block ${className || ""}`}>
       <Container className="border-y-[1px] border-gray-100 border-opacity-20">
         <div className="flex justify-between items-center mx-auto text-white px-5">
           <Logo logo={logo} imagePath={imagePath} />
@@ -160,21 +160,21 @@ export default function HeroNavbar({
 const Categories = ({ categories, imagePath }) => {
   return (
     <div className="w-full mt-8 bg-black rounded-lg p-6">
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-3 gap-5 items-center">
         {categories?.map((category, index) => (
           <Link
             key={index}
             href={`/${encodeURI(category.title.toLowerCase())}`}
             title={`View ${category.title} category`}
-            className="flex flex-col items-center transition-all duration-500 hover:opacity-80"
+            className="flex flex-col  items-center transition-all duration-500 hover:opacity-80"
           >
-            <div className="rounded-lg aspect-[4/3] flex items-center justify-center overflow-hidden">
+            <div className="rounded-lg aspect-[4/3] w-full h-40 flex items-center justify-center overflow-hidden">
               <Image
                 src={`${imagePath}/${category.image}`}
                 alt={category.title}
                 title={category.title}
-                height={170}
-                width={230}
+                height={160}
+                width={213}
                 className="object-cover w-full h-full"
               />
             </div>

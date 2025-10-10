@@ -21,8 +21,8 @@ export default function BlogBanner({ myblog, imagePath }) {
           className="object-cover"
         />
       </div>
-      
-      <div className="flex flex-col items-center gap-7 text-center lg:w-[1000px]">
+
+      <div className="flex flex-col items-center gap-7 px-4 text-center lg:w-[1000px]">
         <Badge>{myblog?.value?.article_category}</Badge>
         <h1
           style={{ fontSize: myblog?.value?.titleFontSize || 48 }}
